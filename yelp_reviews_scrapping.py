@@ -5,6 +5,7 @@ import csv
 from time import sleep
 from random import randint
 import re
+from datetime import datetime
 
 # storing response of a get request to a variable
 response = requests.get('https://www.yelp.com/biz/celine-patisserie-seattle-2')
@@ -60,7 +61,8 @@ def onepage_scrape(reviews, csvwriter):
         location = review.find('span', attrs={'class' : 'lemon--span__373c0__3997G text__373c0__2Kxyz text-color--normal__373c0__3xep9 text-align--left__373c0__2XGa- text-weight--bold__373c0__1elNz text-size--small__373c0__3NVWO'}).string
         rating = review.find('img', attrs={'class' : 'lemon--img__373c0__3GQUb offscreen__373c0__1KofL'}).parent.get('aria-label')
         rating = int(re.findall('\d+', rating)[0])
-        date = review.find('span', attrs={'class' : 'lemon--span__373c0__3997G text__373c0__2Kxyz text-color--mid__373c0__jCeOG text-align--left__373c0__2XGa-'}).string
+        datestr = review.find('span', attrs={'class' : 'lemon--span__373c0__3997G text__373c0__2Kxyz text-color--mid__373c0__jCeOG text-align--left__373c0__2XGa-'}).string
+        date = datetime.strptime(datestr, '%m/%d/%Y').date()
         content = review.find('span', attrs={'class' : 'lemon--span__373c0__3997G raw__373c0__3rKqk'}).get_text()
         dic['user'] = user
         dic['location'] = location
@@ -70,7 +72,7 @@ def onepage_scrape(reviews, csvwriter):
         csvwriter.writerow(dic.values())
 
 with open('yelpreviews.csv', 'w', encoding='utf-8', newline='') as csvfile:
-    review_writer = csv.writer(csvfile)
+    review_writer = csv.writer(csvfile, delimiter='|')
     headers = ['User', 'Location', 'Rating', 'Date', 'Content']
     review_writer.writerow(headers)
     for index, url in enumerate(url_list):
