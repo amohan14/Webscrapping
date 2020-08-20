@@ -1,5 +1,5 @@
 # Webscrapping
-Create an EC2 Instance using Ansible playbook
+Create an EC2 Instance using Ansible playbook and add to a group
 Install packages onthe EC2 instance:
 python
 
