@@ -100,12 +100,16 @@ Execute the below commands based on the OS of EC2 instances for installing follo
     
         $ sudo systemctl start mariadb
         $ sudo systemctl status mariadb
-
+        $ sudo echo -e "\n\nroot\nroot\n\n\nn\n\n " | mysql_secure_installation 2>/dev/null
+    Note:
+    -e        enable interpretation of the following backslash escapes
+    2>/dev/null will filter out the errors so that they will not be output to your console. In more detail: 2 represents the error descriptor, which is where errors are written to. ... /dev/null is the standard Linux device where you send output that you want ignored.   
+    
     ###### Ubuntu
     
         $ sudo apt update
         $ sudo apt install mariadb-server
-        $ sudo mysql_secure_installation
+        $ sudo echo -e "\n\nroot\nroot\n\n\nn\n\n " | mysql_secure_installation 2>/dev/null
 
     **4. BeautifulSoup4**
     ###### CentOs
@@ -135,6 +139,7 @@ Execute the below commands based on the OS of EC2 instances for installing follo
             - yum: pkg=git state=installed
             - yum: pkg=mariadb-server state=installed
             - shell: sudo systemctl start mariadb
+            - shell: echo -e "\n\nroot\nroot\n\n\nn\n\n " | mysql_secure_installation 2>/dev/null
             - shell: sudo pip3 install requests bs4
             
 - After the packages are installed successfully, clone the git repository in which the webscrapper python script is present to the EC2 instance home directory.
