@@ -117,6 +117,7 @@ Execute the below commands based on the OS of EC2 instances for installing follo
     
     ##### Ubuntu
         $ sudo apt-get update -y
+        $ sudo apt-get install -y python3-bs4
         $ sudo apt-get install -y python-beautifulsoup
     
     **5. Requests**
