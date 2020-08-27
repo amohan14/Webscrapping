@@ -14,6 +14,10 @@
 
         $ sudo pip3 install boto boto3
 
+- Install AWS CLI on the VM
+
+        $ pip3 install awscli --upgrade --user
+        
 - Go to AWS console and create an IAM User. Add it to a group each having AmazonEC2FullAccess permissions. 
 
 - Copy the user's AWS Access Key ID and AWS Secret Access Key
