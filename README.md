@@ -14,7 +14,19 @@
 
         $ sudo pip3 install boto boto3
 
-- Create an EC2 Instance using Ansible playbook and add host to group 'just_created' with variable foo=42
+- Go to AWS console and create an IAM User. Add it to a group each having AmazonEC2FullAccess permissions. 
+
+- Copy the user's AWS Access Key ID and AWS Secret Access Key
+
+- Return to Virtual Machine. Configure AWS with the user keys and set the default region as per requirement
+
+        $ aws configure
+        
+- Also create an **.aws/credentials** file and copy the keys and default region to it so that ansible can access the keys accordingly
+
+- Create a keypair and ensure the keypair.pem file is accessible to virtual machine. 
+
+- Create an EC2 Instance(CentOs machine) using Ansible playbook and add host to group 'just_created' with variable foo=42
 
         - name: Create an EC2 instance
             hosts: local
